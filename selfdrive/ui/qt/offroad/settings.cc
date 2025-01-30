@@ -31,6 +31,12 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       "../assets/img_experimental_white.svg",
     },
     {
+      "BydModifiedStockLong",
+      tr("Enable BYD Modified Stock Longitudinal Control"),
+      tr("On this car it works by multiplying a percentage smooth rate based on the distance of front cars detected by mrr."),
+      "../assets/offroad/icon_speed_limit.png",
+    },
+    {
       "DynamicExperimentalControl",
       tr("Enable Dynamic Experimental Control"),
       tr("Enable toggle to allow the model to determine when to use sunnypilot ACC or sunnypilot End to End Longitudinal."),
@@ -124,6 +130,7 @@ void TogglesPanel::showEvent(QShowEvent *event) {
 
 void TogglesPanel::updateToggles() {
   auto experimental_mode_toggle = toggles["ExperimentalMode"];
+  auto modify_stocklong_toggle = toggles["BydModifiedStockLong"];
   const QString e2e_description = QString("%1<br>"
                                           "<h4>%2</h4><br>"
                                           "%3<br>"
@@ -148,11 +155,13 @@ void TogglesPanel::updateToggles() {
       // normal description and toggle
       experimental_mode_toggle->setEnabled(true);
       experimental_mode_toggle->setDescription(e2e_description);
+      modify_stocklong_toggle->setEnabled(true);
       long_personality_setting->setEnabled(true);
     } else {
       // no long for now
       experimental_mode_toggle->setEnabled(false);
       long_personality_setting->setEnabled(false);
+      modify_stocklong_toggle->setEnabled(false);
       params.remove("ExperimentalMode");
 
       const QString unavailable = tr("Experimental mode is currently unavailable on this car since the car's stock ACC is used for longitudinal control.");
@@ -170,6 +179,7 @@ void TogglesPanel::updateToggles() {
     }
 
     experimental_mode_toggle->refresh();
+    modify_stocklong_toggle->refresh();
   } else {
     experimental_mode_toggle->setDescription(e2e_description);
   }

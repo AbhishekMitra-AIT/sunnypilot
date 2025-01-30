@@ -103,6 +103,7 @@ protected:
 
   QLabel *onroadLbl;
   LabelControl *versionLbl;
+  ParamControl* updateToggle;
   ButtonControl *installBtn;
   ButtonControl *downloadBtn;
   ButtonControl *targetBranchBtn;
